@@ -22,7 +22,6 @@ function animateSlides(){
         slideTl.fromTo(revealImg, {x: "0%"}, {x: "100%"});
         slideTl.fromTo(img, {scale: 2}, {scale: 1}, "-=1");
         slideTl.fromTo(revealText, {x: "0%"}, {x: "100%"}, "-=0.75");
-        slideTl.fromTo(nav, {y: "-100%"}, {y: "0%"}, "-=0.5");
         //Create Scene
         slideScene = new ScrollMagic.Scene({
             triggerElement: slide,
@@ -31,7 +30,6 @@ function animateSlides(){
         //Add timeline to tween
         .setTween(slideTl)
         //add visual indicator for slide
-        .addIndicators({colorStart: 'white', colorTrigger: "white", name: "slide"})
         //Hook gsap with scroll magic
         .addTo(controller);
         //New animation
@@ -47,7 +45,6 @@ function animateSlides(){
             triggerHook: 0
         })
         //add visual indicator for page
-        .addIndicators({colorStart: 'white', colorTrigger: "white", name: "page", indent: 200})
         // Add pin to keep img in place and pushes follow up slides(followers) up
         .setPin(slide, { pushFollowers: false})
         .setTween(pageTl)
@@ -122,7 +119,7 @@ barba.init({
             beforeEnter(){
                 logo.href= "../index.html"
                 detailAnimation();
-                gsap.fromTo(".nav-header", 1, {y: "100%"}, {y: "0%", ease:"power2.InOut"})
+                
             },
             beforeLeave(){
                 controller.destroy();
@@ -149,6 +146,7 @@ barba.init({
                 const tl = gsap.timeline({defaults: {ease:"power2.inOut"}});
                 tl.fromTo(".swipe", 1, {x: "0%"}, {x: "100%", stagger:0.25, onComplete: done});
                 tl.fromTo(next.container,1,{opacity: 0}, {opacity:1});
+                tl.fromTo(".nav-header", 1, {y: "-100%"}, {y: "0%", ease:"power2.InOut"}, "-=1.5")
             }
         }
     ]
@@ -174,7 +172,6 @@ function detailAnimation(){
             triggerHook: 0
         }).setPin(slide, { pushFollowers: false })
         .setTween(slideTl)
-        .addIndicators({colorStart: 'white', colorTrigger: "white", name: "detailscene"})
         .addTo(controller)
     });
 }
@@ -190,3 +187,4 @@ window.addEventListener("mouseover", activeCursor);
 
 
 
+// slideTl.fromTo(nav, {y: "-100%"}, {y: "0%"}, "-=0.5");
